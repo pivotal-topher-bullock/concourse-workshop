@@ -1,6 +1,8 @@
-= Lab 03
+= Lab 02
 
-== Introduce Git Resource
+== The Git Resource
+
+The git resource is one of the built-in resources that ships with any release of Concourse. The 'in' command formthis resource pulls down a git repository at a given commit ref, while the 'out' command can push new commits up to the repository.
 
 . Modify the file pipeline.yml that you previously created.  Add the following text, which refers to a Git repository you created in the pre-reqs section, to the top of your file:
 +
