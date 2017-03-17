@@ -5,17 +5,25 @@ This 2 hour hands-on session will provide developers and operators with hands on
 
 == Content
 
-Presentation ::
- * Intro to Concourse: link:presentation/concourse.pptx[_Concourse Intro_]
-
-Labs::
- * link:labs/pre-reqs.adoc[_Setup Environment Pre-reqs_]
- * link:labs/lab01.adoc[_World’s simplest Concourse Task_]
- * link:labs/lab02.adoc[_1st Job on Concourse Server_]
- * link:labs/lab03.adoc[_Introduce Git Resource_]
- * link:labs/lab04.adoc[_Modularize Tasks and Link Multiple Jobs_]
- * link:labs/lab05.adoc[_SSH into a Concourse task to debug on server_]
- * link:labs/lab06.adoc[_Push app to CF_]
+The Core Concepts  ::
+* Pipeline
+* Job
+* Resource
+* Teams
+Your First Pipeline ::
+* link:labs/lab01.adoc[_Simple Hello World Pipeline_]
+* link:labs/lab02.adoc[_The Git Resource_]
+Building on the Basics ::
+* link:labs/lab04.adoc[_Resource Passed semantics_]
+* Implementing passed semantics to build a pipeline [need content]
+* Resource put-ing [need content]
+* link:labs/lab04.adoc[_Modular Tasks_]
+* Debugging  / Fly execute [lab, lab]
+Continuous Delivery ::
+* How Concourse Helps
+* Blue Green Deployment
+* Pushing an app to CF [lab]
+* Blue Green Deploy using CF Push
 
 == Where to go from Here??
  * link:https://github.com/azwickey-pivotal/volume-demo[Create a pipeline that uses Semantic Versioning (SemVer) and checks pipeline outputs into git as a git release]
