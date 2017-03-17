@@ -1,8 +1,8 @@
-= Lab 01
+= Lab 00
 
-== World’s simplest Concourse Task
+== Concourse Task yml
 
-. Using a text editor (of choice), create the file pipeline.yml:
+. Using a text editor (of choice), create the file hello-task.yml:
 +
 [source, bash]
 ---------------------------------------------------------------------
