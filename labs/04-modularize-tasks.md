@@ -1,11 +1,10 @@
-= Lab 04
+# Lab 04
 
-== Modularize Tasks and Link Multiple Jobs
+## Modularize Tasks and Link Multiple Jobs
 
 . It is very common within an application's git repository to place all concourse artifacts in a _ci_ folder.  Within that folder individual tasks are modularized in their own yml files and refer to shell scripts for actual task execution.  E.G.
-+
-[source, bash]
----------------------------------------------------------------------
+
+```
 App Git Repo Root:
 ├── App source code....
 │   ├── Some code artifacts...
@@ -15,28 +14,23 @@ App Git Repo Root:
 │   ├── tasks
 │   │   ├── modular-task.yml
 │   │   ├── modular-task.sh
----------------------------------------------------------------------
-+
+```
+
 We will mimic that structure as we build out our pipeline
 
-. Create the _ci_ and _ci/tasks_ directory structure:
-+
-[source,bash]
----------------------------------------------------------------------
-$ mkdir -p ci/tasks
----------------------------------------------------------------------
+Create the _ci_ and _ci/tasks_ directory structure:
 
-. Move the pipeline.yml file into your new _ci_ directory
-+
-[source,bash]
----------------------------------------------------------------------
-$ mv pipeline.yml ci/pipeline.yml
----------------------------------------------------------------------
+
+`$ mkdir -p ci/tasks`
+
+Move the pipeline.yml file into your new _ci_ directory
+
+
+`$ mv pipeline.yml ci/pipeline.yml`
 
 . We will now create modularized tasks for the steps to build our application.  First create the yml task file _mvn-test.yml_.  Create the file in the _ci/tasks_ directory:
-+
-[source, bash]
----------------------------------------------------------------------
+
+```
 ---
 platform: linux
 
@@ -51,26 +45,25 @@ inputs:
 
 run:
   path: git-assets/ci/tasks/test.sh
----------------------------------------------------------------------
+```
 
 . You'll note that this task references to script _test.sh_ for the actual execution logic.  Create that file:
-+
-[source, bash]
----------------------------------------------------------------------
+
+```
 #!/bin/bash
 
 set -xe
 
 cd git-assets
 mvn test
----------------------------------------------------------------------
+```
 
 . Create similar artifacts for the packaging stage of your application build:
 +
 _ci/tasks/mvn-package.yml_
 +
 [source,bash]
----------------------------------------------------------------------
+```
 ---
 platform: linux
 
@@ -88,12 +81,12 @@ outputs:
 
 run:
   path: git-assets/ci/tasks/package.sh
----------------------------------------------------------------------
+```
 +
 _ci/tasks/package.sh_
 +
 [source,bash]
----------------------------------------------------------------------
+```
 #!/bin/bash
 
 set -xe
@@ -101,19 +94,19 @@ set -xe
 cd git-assets
 mvn package
 cp target/concourse-demo-*.jar ../app-output/concourse-demo.jar
----------------------------------------------------------------------
+```
 
 . We need to make sure our bash scripts are executable.  Execute the following command:
 +
 [source,bash]
----------------------------------------------------------------------
+```
 $ chmod +x ci/tasks/*.sh
----------------------------------------------------------------------
+```
 
 .  Modify your main _pipleine.yml_, which now resides in the the ci directory, to include the 2 new tasks.  These tasks will represent completely new jobs in your pipeline.  These will test and package the java code included in your repository.  You will be replacing your "howdy" job.  Your final pipeline.yml file should look like this:
 +
 [source,bash]
----------------------------------------------------------------------
+```
 resources:
 - name: git-assets
   type: git
@@ -138,21 +131,21 @@ jobs:
       - unit-test
   - task: mvn-package
     file: git-assets/ci/tasks/mvn-package.yml
----------------------------------------------------------------------
+```
 
 . Update your concourse pipeline with the set-pipeline command.  Remember, your pipeline.yml file is now in a different location:
 +
 [source,bash]
----------------------------------------------------------------------
+```
 $ fly -t gcp set-pipeline -p pipeline-<LASTNAME> -c ci/pipeline.yml
----------------------------------------------------------------------
+```
 
 . You'll note your pipeline now steps (or jobs).  1) Unit test your code and 2) Package/Deploy your code.  Step #2 will only kickoff if Step #1 is successful
 
 . Our last step is to check all our new pipeline code into git.  This should be everything in the ci folder.  Once we commit our build is automatically triggered:
 +
 [source,bash]
----------------------------------------------------------------------
+```
 $ git add ci/pipeline.yml ci/tasks
 
 $ git commit -m "added concourse task assets"
@@ -170,6 +163,6 @@ Total 7 (delta 1), reused 0 (delta 0)
 remote: Resolving deltas: 100% (1/1), completed with 1 local objects.
 To git@github.com:azwickey-pivotal/concourse-workshop.git
    b952fc5..623fdb6  master -> master
----------------------------------------------------------------------
+```
 +
-image::lab04.png[]
+![](lab04.png[]
