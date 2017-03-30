@@ -2,9 +2,9 @@
 
 ## The Git Resource
 
-The git resource is one of the built-in resources that ships with any release of Concourse. The 'in' command formthis resource pulls down a git repository at a given commit ref, while the 'out' command can push new commits up to the repository.
+The git resource is one of the built-in resources that ships with any release of Concourse. The 'in' command for this resource pulls down a git repository at a given commit ref, while the 'out' command can push new commits up to the repository.
 
-Modify the file pipeline.yml that you previously created.  Add the following text, which refers to a Git repository you created in the pre-reqs section, to the top of your file:
+Modify the file pipeline.yml that you previously created.  Add the following text, which refers to a Git repository to the top of your file:
 
 ```yaml
 resources:
@@ -12,18 +12,18 @@ resources:
   type: git
   source:
     branch: master
-    uri: https://github.com/azwickey-pivotal/concourse-workshop
+    uri: https://github.com/pivotal-topher-bullock/concourse-workshop
 ```
 
 Modify the previous "hello" job in the jobs section of the file to add a new task to the pipeline that will GET the git repository:
 
 ```yaml
 jobs:
-- name: hello
+- name: hello-world
   plan:
   - get: git-assets   # Lines to add
     trigger: true     # Lines to add
-  - task: howdy
+  - task: say-hello
     config:
       platform: linux
       image_resource:
@@ -31,25 +31,25 @@ jobs:
         source: {repository: ubuntu}
       run:
         path: echo
-        args: ["Hello, My first pipeline!"]
+        args: ["Hello, world!"]
 ```
 
  Your full pipeline file should look like this:
 
 ```yaml
 resources:
-- name: git-assets
+- name: concourse-workshop
   type: git
   source:
     branch: master
-    uri: https://github.com/azwickey-pivotal/concourse-workshop
+    uri: https://github.com/pivotal-topher-bullock/concourse-workshop
 
 jobs:
-- name: hello
+- name: hello-world
   plan:
-  - get: git-assets
+  - get: concourse-workshop
     trigger: true
-  - task: howdy
+  - task: say-hello
     config:
       platform: linux
       image_resource:
@@ -57,12 +57,12 @@ jobs:
         source: {repository: ubuntu}
       run:
         path: echo
-        args: ["Hello, My first pipeline!"]
+        args: ["Hello, world!"]
 ```
 
 Update your pipeline in on the concourse server with the set-pipeline command.
 
-```$ fly -t demo set-pipeline -p pipeline -c pipeline.yml```
+```$ fly -t demo set-pipeline -p hello-world -c pipeline.yml```
 
 You'll note that when you update a pipeline the fly CLI response will highlight what has changed in the pipeline.
 
