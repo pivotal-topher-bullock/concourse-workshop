@@ -7,7 +7,7 @@ Builds don't always run smoothly.  At times a developer or operator will need to
 SSH into one of your build tasks.  Replace <LASTNAME> with the name you used when naming your pipeline.  If you are presented with multiple tasks to log into choose the most recent build.
 
 ```
-$ fly -t gcp hijack -j pipeline-<LASTNAME>/deploy
+$ fly -t lite  hijack -j pipeline-<LASTNAME>/deploy
 
 1: build #5, step: mvn-package, type: task
 2: build #6, step: mvn-package, type: check

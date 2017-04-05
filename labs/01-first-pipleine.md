@@ -1,8 +1,23 @@
 # Lab 01
 
+## Vagrant Up for Local Development
+
+Concourse can be [installed in many different flavours](http://concourse.ci/installing.html), depending on your needs and the scale of your team. For our purposes, we'll be using a local VM with Vagrant; this is the easiest way to get up and running in 5 minutes.
+
+Run the following in a new directory from your terminal.
+
+```
+$ vagrant init concourse/lite  # creates ./Vagrantfile
+$ vagrant up                   # downloads the box and spins up the VM
+```
+
+The Concourse web server will be running at 192.168.100.4:8080. From that page you can download the `Fly` cli to log into the Concourse server and start making pipelines!
+
+`fly -t lite login -c http://192.168.100.4:8080`
+
 ## 1st Concourse Pipeline
 
-Create the file hello.yml using your preffered text editor or IDE.  In this step we are creating a job within a pipeline, rather than running a one-off task:
+Create the file hello.yml using your preferred text editor or IDE.  In this step we are creating a job within a pipeline, rather than running a one-off task:
 
 ``` yaml
 jobs:
@@ -21,7 +36,7 @@ jobs:
 
 To deploy this pipeline to the concourse server use the fly command to set a pipeline.
 
-```$ fly -t demo set-pipeline -p hello-world -c hello.yml```
+```$ fly -t lite set-pipeline -p hello-world -c hello.yml```
 
 You'll note the command informs us that initially our pipeline is in a paused state.  We could un-pause from the command line, but instead we'll un-pause and execute the pipeline from the Concourse web UI.
 

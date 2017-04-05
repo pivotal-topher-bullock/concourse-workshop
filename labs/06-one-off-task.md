@@ -17,7 +17,7 @@ run:
 To execute the concourse task on your local workstation execute the following fly command.  Your environment may pull down a docker image after which you will see the task initialize and execute.
 
 ```
-$ fly -t gcp execute -c pipeline.yml
+$ fly -t lite  execute -c pipeline.yml
 executing build 79
 initializing
 running echo Hello, My first pipeline!

@@ -17,9 +17,9 @@ This 2 hour hands-on session will provide developers and operators with hands on
 
 **Building on the Basics**
 * Resource Passed semantics
-* [Implementing passed semantics to build a pipeline](labs/03-passed-semantics.md)
-* Resource put-ing [need content]
+* [Implementing passed semantics to build a pipeline](labs/03-passing-resources.md)
 * [Modular Tasks](labs/04-modularize-tasks.md)
+* Resource puts
 * [Debugging](labs/05-fly-hijack.md)
 * [Fly execute](labs/06-one-off-task.md)
 

@@ -29,7 +29,7 @@ $ fly --target gcp login --concourse-url http://concourse.cloud.zwickey.net:8080
 +
 [source,bash]
 ```
-$ fly -t gcp login                                                                                                                              1 ↵
+$ fly -t lite  login                                                                                                                              1 ↵
 username: admin
 password:
 

@@ -15,7 +15,10 @@ resources:
     uri: https://github.com/pivotal-topher-bullock/concourse-workshop
 ```
 
-Modify the previous "hello" job in the jobs section of the file to add a new task to the pipeline that will GET the git repository:
+You'll notice we can specify a `type` some `source:` params for a resource
+
+
+Modify the plan of the "hello-world" job in the jobs section of the file to add a new step that will `get` the git repository:
 
 ```yaml
 jobs:
@@ -62,7 +65,7 @@ jobs:
 
 Update your pipeline in on the concourse server with the set-pipeline command.
 
-```$ fly -t demo set-pipeline -p hello-world -c pipeline.yml```
+```$ fly -t lite  set-pipeline -p hello-world -c pipeline.yml```
 
 You'll note that when you update a pipeline the fly CLI response will highlight what has changed in the pipeline.
 
@@ -71,6 +74,6 @@ Return back to the Concourse Web UI.  You'll note your pipeline has now changed 
 
 ![](resource.png)
 
-Your pipeline will now trigger automatically anytime the git repository changes.  This is because we marked the _get_ task in the pipeline to be triggered.  By clicking on the hello job you should now see the output of both a git clone and execution of the task that outputs a simple message to STDOUT:
+Your pipeline will now trigger automatically anytime the git repository changes.  This is because we marked the _get_ task in the pipeline to be triggered.  By clicking on the hello-world job you should now see the output of both a git clone and execution of the task that outputs a simple message to STDOUT:
 
 ![](lab03-execute.png)
