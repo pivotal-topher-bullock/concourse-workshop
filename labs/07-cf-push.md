@@ -2,10 +2,12 @@
 
 ## Push app to CF
 
-Lastly, we want to deploy our application to Pivotal Cloudfoundry.  We'll add this to the _deploy_ task within our pipeline.  First, define a Cloudfoundry resource below the git-assets resource:
+Lastly, we want to deploy our application to Pivotal Cloud Foundry.  We'll add
+this to the `deploy` task within our pipeline.  First, define a Cloud Foundry
+resource below the git-assets resource:
 
 ```yaml
-- name: cloudfoundry
+- name: dev
   type: cf
   source:
     api: {{cf-api}}
@@ -16,9 +18,21 @@ Lastly, we want to deploy our application to Pivotal Cloudfoundry.  We'll add th
     space: {{cf-space}}
 ```
 
-You'll note references to values in the pipeline YML in the format of {{SOME-VALUE}}; this is the way to refer to a variable that is configured at deploy time rather than statically in your pipleline.  We need to create a _credentials_ file that will be used when we deploy the pipeline that will populate the variables.  Copy the template file that is already in the git repo:
+You'll note references to values in the pipeline YML in the format of
+{{SOME-VALUE}}; this is the way to refer to a variable that is configured at
+deploy time rather than statically in your pipleline.  We need to create a
+credentials file that will be used when we deploy the pipeline that will
+populate the variables.  Create a yml file `ci/credentials.yml`, with the
+following contents, replacing them with the provided credentials:
 
-`$ cp completed-ci/credentials.yml.sample ci/credentials.yml`
+
+```yaml
+cf-api: 
+cf-organization:
+cf-username:
+cf-password:
+cf-space:
+```
 
 Edit the newly created credentials.yml file to populate it with your specific Cloudfoundry environment information.
 
@@ -57,7 +71,7 @@ jobs:
   - get: git-assets
     trigger: true
   - task: mvn-test
-    file: git-assets/ci/tasks/mvn-test.yml
+    file: git-assets/ci/mvn-test.yml
 - name: deploy
   public: true
   plan:
@@ -66,7 +80,7 @@ jobs:
     passed:
       - unit-test
   - task: mvn-package
-    file: git-assets/ci/tasks/mvn-package.yml
+    file: git-assets/ci/mvn-package.yml
   - put: cloudfoundry
     params:
       manifest: git-assets/manifest.yml

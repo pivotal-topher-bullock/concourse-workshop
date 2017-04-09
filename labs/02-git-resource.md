@@ -2,9 +2,12 @@
 
 ## The Git Resource
 
-The git resource is one of the built-in resources that ships with any release of Concourse. The 'in' command for this resource pulls down a git repository at a given commit ref, while the 'out' command can push new commits up to the repository.
+The git resource is one of the built-in resources that ships with any release of
+Concourse. The 'in' command for this resource pulls down a git repository at a given
+commit ref, while the 'out' command can push new commits up to the repository.
 
-Modify the file pipeline.yml that you previously created.  Add the following text, which refers to a Git repository to the top of your file:
+Modify the `pipeline.yml` that you previously created. Add the following text, which
+refers to a Git repository to the top of your file:
 
 ```yaml
 resources:
@@ -15,10 +18,13 @@ resources:
     uri: https://github.com/pivotal-topher-bullock/concourse-workshop
 ```
 
-You'll notice we can specify a `type` some `source:` params for a resource
+You'll notice we can specify a `type` some `source:` keys for a resource. The `params`
+allow further configuration of resource, and the configuration available depends on
+the `type`. See [resource types](http://concourse.ci/resource-types.html) for more
+options.
 
-
-Modify the plan of the "hello-world" job in the jobs section of the file to add a new step that will `get` the git repository:
+Modify the plan of the `hello-world` job in the jobs section of the file to add a
+new step that will `get` the git repository:
 
 ```yaml
 jobs:
@@ -65,7 +71,7 @@ jobs:
 
 Update your pipeline in on the concourse server with the set-pipeline command.
 
-```$ fly -t lite  set-pipeline -p hello-world -c pipeline.yml```
+```$ fly -t demo  set-pipeline -p hello-world-{your-name} -c pipeline.yml```
 
 You'll note that when you update a pipeline the fly CLI response will highlight what has changed in the pipeline.
 

@@ -2,7 +2,7 @@
 
 ##Fly Execute for testing a task
 
-Using a text editor (of choice), create the file hello-task.yml:
+Using a text editor create the file `hello-task.yml`:
 
 ```yaml
 platform: linux
@@ -14,10 +14,12 @@ run:
   args: ["Hello, My first pipeline!"]
 ```
 
-To execute the concourse task on your local workstation execute the following fly command.  Your environment may pull down a docker image after which you will see the task initialize and execute.
+To execute the concourse task on your local workstation execute the following
+fly command.  Your environment may pull down a docker image after which you
+will see the task initialize and execute.
 
 ```
-$ fly -t lite  execute -c pipeline.yml
+$ fly -t demo  execute -c hello-task.yml
 executing build 79
 initializing
 running echo Hello, My first pipeline!

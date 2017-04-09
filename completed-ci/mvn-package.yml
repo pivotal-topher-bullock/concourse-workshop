@@ -10,5 +10,8 @@ image_resource:
 inputs:
 - name: git-assets
 
+outputs:
+- name: app-output
+
 run:
-  path: git-assets/concourse-workshop/ci/tasks/test.sh
+  path: git-assets/concourse-workshop/ci/scripts/package.sh
